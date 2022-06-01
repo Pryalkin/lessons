@@ -10,10 +10,9 @@ package lessons1;
 // 5) один оператор цикла for
 // 6) один оператор цикла foreach
 // 6) одну тернарную операцию
-// 7) один оператор break
-// 8) один оператор continue
-// 9) один оператор return
-// 10) создать алгоритм
+// 7) один оператор break или continue
+// 8) один оператор return
+// 9) создать алгоритм
 
 import java.util.Scanner;
 
@@ -28,74 +27,94 @@ public class Run {
         gameInitialization();
         int count = 1;
         while (flagToEndTheGame){
-            if (count < 9) {
+            if (count < 10) {
                 System.out.println("Ход номер " + count);
                 arrayOutputTicTacToe();
-                checkUserProgress(user);
+                checkUserProgress(user, count);
                 arrayOutputTicTacToe();
-                checkComputerProgress(computer);
-            }
+                checkComputerProgress(computer, count);
+            } else flagToEndTheGame = false;
             count++;
         }
         System.out.println("Игра завершена!");
     }
 
-    private static void checkComputerProgress(int symbolForTheUser) {
+    private static void checkComputerProgress(int symbolForTheUser, int count) {
         boolean userMove;
         do {
-            userMove = makeTheComputerMove(false, symbolForTheUser);
+            userMove = makeTheComputerMove(false, symbolForTheUser, count);
         } while (userMove);
     }
 
-    private static boolean makeTheComputerMove(boolean userMove, int symbolForTheUser) {
+    private static boolean makeTheComputerMove(boolean userMove, int symbolForTheUser, int count) {
         System.out.println("Компьютер выбирает зону.");
         int random_number = 1 + (int) (Math.random() * 9);
-        return cellSelection(userMove, random_number, symbolForTheUser);
+        return cellSelection(userMove, random_number, symbolForTheUser, count);
     }
 
-    private static void checkUserProgress(int user) {
+    private static void checkUserProgress(int user, int count) {
         boolean userMove;
         do {
-            userMove = makeTheUserMove(false, user);
+            userMove = makeTheUserMove(false, user, count);
         } while (userMove);
     }
 
-    private static boolean makeTheUserMove(boolean userMove, int user) {
+    private static boolean makeTheUserMove(boolean userMove, int user, int count) {
         System.out.println("Выберите зону.");
         System.out.println("0 - завершить игру.");
         Scanner in = new Scanner(System.in);
         int i = in.nextInt();
-        return cellSelection(userMove, i, user);
+        return cellSelection(userMove, i, user, count);
     }
 
-    private static boolean cellSelection(boolean userMove, int i, int symbol) {
+    private static boolean cellSelection(boolean userMove, int i, int symbol, int count) {
+        int x = 0;
+        int y = 0;
         switch (i){
             case 1:
-                userMove = actionToInfectACell(1, userMove, symbol);
+                x = 0;
+                y = 0;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 1);
                 break;
             case 2:
-                userMove = actionToInfectACell(2, userMove, symbol);
+                x = 0;
+                y = 1;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 2);
                 break;
             case 3:
-                userMove = actionToInfectACell(3, userMove, symbol);
+                x = 0;
+                y = 2;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 3);
                 break;
             case 4:
-                userMove = actionToInfectACell(4, userMove, symbol);
+                x = 1;
+                y = 0;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 4);
                 break;
             case 5:
-                userMove = actionToInfectACell(5, userMove, symbol);
+                x = 1;
+                y = 1;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 5);
                 break;
             case 6:
-                userMove = actionToInfectACell(6, userMove, symbol);
+                x = 1;
+                y = 2;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 6);
                 break;
             case 7:
-                userMove = actionToInfectACell(7, userMove, symbol);
+                x = 2;
+                y = 0;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 7);
                 break;
             case 8:
-                userMove = actionToInfectACell(8, userMove, symbol);
+                x = 2;
+                y = 1;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 8);
                 break;
             case 9:
-                userMove = actionToInfectACell(9, userMove, symbol);
+                x = 2;
+                y = 2;
+                userMove = checkTheWinner(x, y, symbol, count, userMove, 9);
                 break;
             case 0:
                 flagToEndTheGame = false;
@@ -105,6 +124,135 @@ public class Run {
                 userMove = true;
         }
         return userMove;
+    }
+
+    private static boolean checkTheWinner(int x, int y, int symbol, int count, boolean userMove, int i) {
+        if (count < 3) {
+            return userMove = actionToInfectACell(i, userMove, symbol);
+        } else {
+            userMove = actionToInfectACell(i, userMove, symbol);
+            checkTheWinnerInCell(symbol, x, y);
+            return userMove;
+        }
+    }
+
+    private static void checkTheWinnerInCell(int symbol, int x, int y) {
+        switch (x){
+            case 0:
+                switch (y){
+                    case 0:
+                        if (ticTacToe[0][1] == symbol){
+                            if (ticTacToe[0][2] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[1][0] == symbol){
+                            if (ticTacToe[2][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                    case 1:
+                        if (ticTacToe[0][2] == symbol){
+                            if (ticTacToe[0][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[1][1] == symbol){
+                            if (ticTacToe[2][1] == symbol){
+                                declareVictory();
+                            }
+                        }
+                    case 2:
+                        if (ticTacToe[0][1] == symbol){
+                            if (ticTacToe[0][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[1][2] == symbol){
+                            if (ticTacToe[2][2] == symbol){
+                                declareVictory();
+                            }
+                        }
+                }
+            case 1:
+                switch (y){
+                    case 0:
+                        if (ticTacToe[1][1] == symbol){
+                            if (ticTacToe[1][2] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[0][0] == symbol){
+                            if (ticTacToe[2][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                    case 1:
+                        if (ticTacToe[1][2] == symbol){
+                            if (ticTacToe[1][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[0][1] == symbol){
+                            if (ticTacToe[2][1] == symbol){
+                                declareVictory();
+                            }
+                        }
+                    case 2:
+                        if (ticTacToe[1][1] == symbol){
+                            if (ticTacToe[1][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[0][2] == symbol){
+                            if (ticTacToe[2][2] == symbol){
+                                declareVictory();
+                            }
+                        }
+                }
+            case 2:
+                switch (y){
+                    case 0:
+                        if (ticTacToe[1][0] == symbol){
+                            if (ticTacToe[0][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[2][1] == symbol){
+                            if (ticTacToe[2][2] == symbol){
+                                declareVictory();
+                            }
+                        }
+                    case 1:
+                        if (ticTacToe[2][0] == symbol){
+                            if (ticTacToe[2][2] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[1][1] == symbol){
+                            if (ticTacToe[0][1] == symbol){
+                                declareVictory();
+                            }
+                        }
+                    case 2:
+                        if (ticTacToe[2][1] == symbol){
+                            if (ticTacToe[2][0] == symbol){
+                                declareVictory();
+                            }
+                        }
+                        if (ticTacToe[1][2] == symbol){
+                            if (ticTacToe[0][2] == symbol){
+                                declareVictory();
+                            }
+                        }
+                }
+
+        }
+    }
+
+    private static void declareVictory() {
+        System.out.println("Winner!!!");
+        flagToEndTheGame = false;
     }
 
     private static boolean actionToInfectACell(int i, boolean userMove, int symbol) {
