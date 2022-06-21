@@ -4,9 +4,7 @@ public class Shuttle implements IStart{
 
     @Override
     public boolean preLaunchSystemCheck() {
-        int random_number = (int) (Math.random() * 10);
-        if (random_number > 3) return true;
-        else return false;
+        return (Math.random() * 10) > 3 ? true : false;
     }
 
     @Override
