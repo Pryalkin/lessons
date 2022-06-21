@@ -33,7 +33,6 @@ public class PassengerTransport extends GroundTransport {
         return distance/100*getFuelConsumption();
     }
 
-
     @Override
     public String toString() {
         return super.toString() + " PassengerTransport{" +

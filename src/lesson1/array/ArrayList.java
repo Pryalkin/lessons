@@ -1,8 +1,10 @@
 package lesson1.array;
 
+import lesson3.exception.MyException;
+
 import java.util.Arrays;
 
-public class ArrayList {
+public class ArrayList{
 
     private Integer [] array;
     private Integer capacity;

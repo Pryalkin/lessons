@@ -1,5 +1,7 @@
 package lesson1.array;
 
+import java.util.List;
+
 public class Run {
     public static void main(String[] args) {
         ArrayList arrayList = new ArrayList();
@@ -18,5 +20,6 @@ public class Run {
         System.out.println(arrayList);
         arrayList.add(7);
         System.out.println(arrayList);
+        List list = new java.util.ArrayList();
     }
 }
