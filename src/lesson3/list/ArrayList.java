@@ -12,30 +12,30 @@ public class ArrayList<T> implements List<T> {
         array = new Object[capacity];
     }
 
-//    public Object[] sort(){
-//        Object[] newArray = new Object[size()];
-//        for (int i = 0; i < newArray.length; i++) {
-//            newArray[i] = array[i];
-//        }
-//        for (int i = 0; i < newArray.length; i++) {
-//            if((i+1) != newArray.length){
-//                if (methodForComparingValues(newArray[i], newArray[i+1])) {
-//                    Object thirdPartyVariable;
-//                    thirdPartyVariable = newArray[i];
-//                    newArray[i] = newArray[i + 1];
-//                    newArray[i + 1] = thirdPartyVariable;
-//                    i = -1;
-//                }
-//            }
-//        }
-//        array = new Object[capacity];
-//        for (int i = 0; i < array.length; i++) {
-//            if (i < newArray.length) {
-//                array[i] = newArray[i];
-//            }
-//        }
-//        return array;
-//    }
+    public Object[] sort(){
+        Object[] newArray = new Object[size()];
+        for (int i = 0; i < newArray.length; i++) {
+            newArray[i] = array[i];
+        }
+        for (int i = 0; i < newArray.length; i++) {
+            if((i+1) != newArray.length){
+                if (methodForComparingValues(newArray[i], newArray[i+1])) {
+                    Object thirdPartyVariable;
+                    thirdPartyVariable = newArray[i];
+                    newArray[i] = newArray[i + 1];
+                    newArray[i + 1] = thirdPartyVariable;
+                    i = -1;
+                }
+            }
+        }
+        array = new Object[capacity];
+        for (int i = 0; i < array.length; i++) {
+            if (i < newArray.length) {
+                array[i] = newArray[i];
+            }
+        }
+        return array;
+    }
 
     public Object[] toArray(){
         Object[] newArray = new Object[size()];
@@ -49,7 +49,17 @@ public class ArrayList<T> implements List<T> {
 
     private boolean methodForComparingValues(Object o, Object o1) {
         if (o instanceof Integer && o1 instanceof Integer){
-            if (((Integer) o).intValue() < ((Integer) o1).intValue()){
+            if (((Integer) o).intValue() > ((Integer) o1).intValue()){
+                return true;
+            } else return false;
+        }
+        if (o instanceof Double && o1 instanceof Double){
+            if (((Double) o).intValue() > ((Double) o1).intValue()){
+                return true;
+            } else return false;
+        }
+        if (o instanceof String && o1 instanceof String){
+            if (((String) o).compareTo((String) o1) > 0){
                 return true;
             } else return false;
         }

@@ -9,10 +9,12 @@ public class Run {
         list.add(8);
         System.out.println(list);
         List<String> list2 = new ArrayList<>();
-        list2.add("asd");
-        list2.add("wer");
+        list2.add("asddfgd");
+        list2.add("werd");
+        list2.add("were");
         list2.add("dfg");
-        list2.add("rew");
+        list2.add("dfas");
+        list2.add("rewsdggfgdgf");
         System.out.println(list2);
         List<Double> list3 = new ArrayList<>();
         list3.add(12.45);
@@ -21,11 +23,18 @@ public class Run {
         list3.add(8.98);
         System.out.println(list3);
         list.remove(0);
-        list2.remove(4);
+//        list2.remove(4);
         list3.remove(1);
         System.out.println(list);
         System.out.println(list2);
         System.out.println(list3);
         System.out.println(list);
+        list.sort();
+        list2.sort();
+        list3.sort();
+        System.out.println("-------------");
+        System.out.println(list);
+        System.out.println(list2);
+        System.out.println(list3);
     }
 }
