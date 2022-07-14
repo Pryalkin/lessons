@@ -2,6 +2,9 @@ package lesson3.list;
 
 public class Run {
     public static void main(String[] args) {
+        String i = "abc";
+        String y = "cbd";
+        i.equals(y);
         List<Integer> list = new ArrayList<>();
         list.add(12);
         list.add(9);
@@ -23,7 +26,7 @@ public class Run {
         list3.add(8.98);
         System.out.println(list3);
         list.remove(0);
-//        list2.remove(4);
+        list2.remove(-1);
         list3.remove(1);
         System.out.println(list);
         System.out.println(list2);

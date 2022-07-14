@@ -1,39 +1,59 @@
 package lesson1.phone;
 
-public class Phone {
+public class Phone implements Comparable<Phone>{
 
-    private int number;
+    private String number;
     private String model;
     private double weight;
 
-    public Phone(int number, String model, double weight) {
+    public Phone(String number, String model, double weight) {
         this.number = number;
         this.model = model;
         this.weight = weight;
     }
 
-    public Phone(int number, String model) {
+    public Phone(String number, String model) {
         this(number, model, 0);
     }
 
     public Phone() {
     }
 
-    public int getNumber(){
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public String getNumber(){
         return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public void receiveCall(String name){
         System.out.println("Звонит: " + name);
     }
 
-    public void receiveCall(int number, String name){
+    public void receiveCall(String number, String name){
         System.out.println("Звонит: " + name);
         System.out.println("Его номер: " + number);
     }
 
-    public void sendMessage(int... numbers){
-        for (int number : numbers){
+    public void sendMessage(String... numbers){
+        for (String number : numbers){
             System.out.println("Сообщение отправленно номеру: " + number);
         }
     }
@@ -45,5 +65,10 @@ public class Phone {
                 ", model='" + model + '\'' +
                 ", weight=" + weight +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Phone p) {
+        return number.compareTo(p.number);
     }
 }
