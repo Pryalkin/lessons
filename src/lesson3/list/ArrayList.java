@@ -2,7 +2,7 @@ package lesson3.list;
 
 import java.util.Arrays;
 
-public class ArrayList<T> implements List<T> {
+public class ArrayList<T> implements List<T>{
 
     private Object[] array;
     private int capacity;
